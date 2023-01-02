@@ -1,0 +1,34 @@
+{
+  "name": "BE-SQL",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mariadb": "^3.0.2",
+    "moment": "^2.29.4",
+    "mongodb": "^4.12.1",
+    "mongoose": "^6.3.2",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.20",
+    "oracledb": "^5.5.0",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "react-stripe-checkout": "^2.6.3",
+    "sequelize": "^6.28.0",
+    "sqlite3": "^5.1.4",
+    "stripe": "^11.3.0",
+    "uuid": "^9.0.0"
+  }
+}
