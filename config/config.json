@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "root123",
-    "database": "Booking-hotel",
+    "database": "Bookinghotel",
     "host": "localhost",
     "dialect": "mysql"
   },

@@ -1,7 +1,17 @@
 //Create Table into DB
 import db from './Database.js';
 //import mongoose from "mongoose";
-import { DataTypes } from 'sequelize';
+import { DataTypes, Sequelize } from 'sequelize';
+
+var room = db.define('room', {
+  number: {
+    type: DataTypes.NUMBER,
+  },
+  unavailableDates: {
+    type: DataTypes.ARRAY(DataTypes.DATE),
+  },
+});
+
 const RoomSchema = db.define(
   'rooms',
   {
@@ -10,7 +20,7 @@ const RoomSchema = db.define(
       required: true,
     },
     price: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       required: true,
     },
     image: {
@@ -22,10 +32,13 @@ const RoomSchema = db.define(
       required: true,
     },
     maxPeople: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       required: true,
     },
-    roomNumbers: [{ number: Number, unavailableDates: { type: [Date] } }],
+    roomNumbers: {
+      type: DataTypes.JSON,
+      defaultValue: true,
+    },
   },
   {
     timestamps: true,

@@ -7,7 +7,9 @@ const UsersSchema = db.define(
   {
     username: {
       type: DataTypes.STRING,
-      required: true,
+      validate: {
+        notEmpty: true,
+      },
       unique: true,
     },
     fullname: {
@@ -16,7 +18,9 @@ const UsersSchema = db.define(
     },
     email: {
       type: DataTypes.STRING,
-      required: true,
+      validate: {
+        notEmpty: true,
+      },
       unique: true,
     },
     country: {
@@ -37,11 +41,14 @@ const UsersSchema = db.define(
     password: {
       type: DataTypes.STRING,
       default: '',
-      required: true,
+      validate: {
+        notEmpty: true,
+      },
     },
     isAdmin: {
       type: DataTypes.BOOLEAN,
-      default: false,
+      allowNull: false,
+      defaultValue: false,
     },
   },
   { timestamps: true }

@@ -45,7 +45,9 @@ export const newBooking = async (req, res) => {
 
 export const getBookingUserId = async (req, res, next) => {
   try {
-    const bookings = await Booking.find({ userId: req.params.id });
+    const bookings = await Booking.findOne({
+      where: { userId: req.params.id },
+    });
     res.status(200).json(bookings);
   } catch (err) {
     next(err);
@@ -54,7 +56,7 @@ export const getBookingUserId = async (req, res, next) => {
 
 export const getAllBooking = async (req, res, next) => {
   try {
-    const bookings = await Booking.find();
+    const bookings = await Booking.findAll();
     res.status(200).json(bookings);
   } catch (err) {
     next(err);
@@ -63,15 +65,18 @@ export const getAllBooking = async (req, res, next) => {
 
 export const UpdateBooking = async (req, res, next) => {
   try {
-    const booking = await Booking.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: {
-          status: req.body.status,
-        },
-      },
-      { new: true }
-    );
+    // const booking = await Booking.findByIdAndUpdate(
+    //   req.params.id,
+    //   {
+    //     $set: {
+    //       status: req.body.status,
+    //     },
+    //   },
+    //   { new: true }
+    // );
+    const booking = await Booking.findOne({ id: req.params.id });
+    booking.status = req.body.status;
+    await booking.save();
     res.status(200).json(booking);
   } catch (err) {
     next(err);
@@ -80,7 +85,7 @@ export const UpdateBooking = async (req, res, next) => {
 
 export const getBookingId = async (req, res, next) => {
   try {
-    const booking = await Booking.findById(req.params.id);
+    const booking = await Booking.findOne({ where: { id: req.params.id } });
     res.status(200).json(booking);
   } catch (err) {
     next(err);

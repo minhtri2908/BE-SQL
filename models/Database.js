@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-const db = new Sequelize('Booking-hotel', 'root', 'root123', {
+const db = new Sequelize('bookinghotel', 'root', 'root123', {
     host: 'localhost',
     dialect: 'mysql'
   });

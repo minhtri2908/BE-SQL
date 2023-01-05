@@ -1,14 +1,14 @@
 //Create Table into DB
 import db from './Database.js';
-import { DataTypes } from 'sequelize';
+import { DataTypes, Sequelize } from 'sequelize';
+
 const bookingSchema = db.define(
   'bookings',
   {
     roomId: {
-      type: [String],
-      validate: {
-        notEmpty: true,
-      },
+      type: DataTypes.JSON,
+      allowNull: false,
+      defaultValue: [],
     },
     hotel: {
       type: DataTypes.STRING,
@@ -19,32 +19,32 @@ const bookingSchema = db.define(
     userId: {
       type: DataTypes.STRING,
       validate: {
-          notEmpty: true,
-        },
+        notEmpty: true,
+      },
     },
     fullname: {
       type: DataTypes.STRING,
       validate: {
-          notEmpty: true,
-        },
+        notEmpty: true,
+      },
     },
     fromDate: {
       type: DataTypes.STRING,
       validate: {
-          notEmpty: true,
-        },
+        notEmpty: true,
+      },
     },
     email: {
       type: DataTypes.STRING,
       validate: {
-          notEmpty: true,
-        },
+        notEmpty: true,
+      },
     },
     phone: {
       type: DataTypes.STRING,
       validate: {
-          notEmpty: true,
-        },
+        notEmpty: true,
+      },
     },
     request: {
       type: DataTypes.STRING,
@@ -52,33 +52,33 @@ const bookingSchema = db.define(
     toDate: {
       type: DataTypes.STRING,
       validate: {
-          notEmpty: true,
-        },
+        notEmpty: true,
+      },
     },
     totalPrice: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       validate: {
-          notEmpty: true,
-        },
+        notEmpty: true,
+      },
     },
     totalDays: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       validate: {
-          notEmpty: true,
-        },
+        notEmpty: true,
+      },
     },
     transactionId: {
       type: DataTypes.STRING,
       validate: {
-          notEmpty: true,
-        },
+        notEmpty: true,
+      },
     },
     status: {
       type: DataTypes.STRING,
       validate: {
-          notEmpty: true,
-        },
-      default: 'đang thanh toán',
+        notEmpty: true,
+      },
+      defaultValue: 'đang thanh toán',
     },
   },
   { timestamps: true }

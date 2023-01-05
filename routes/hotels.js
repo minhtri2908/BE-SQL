@@ -13,12 +13,12 @@ router.put("/:id/update", verifyToken, isAdmin, updateHotel);
 router.get('/find/:id', getHotel);
 
 //For get all hotels
-router.get('/', getAllHotels);
+
 router.get('/bycity', byCity);
 router.get('/bytype', byType);
 router.get('/room/:id', getHotelsRoom);
 router.delete("/:id", verifyToken, isAdmin, deleteHotel);
-
+router.get('/', getAllHotels);
 
 
 export default router;
