@@ -34,7 +34,7 @@ export const login = async (req, res, next) => {
       return next(createError(400, 'Mật khẩu không chính xác'));
 
     const token = jwt.sign(
-      { id: user._id, isAdmin: user.isAdmin },
+      { id: user.id, isAdmin: user.isAdmin },
       process.env.JWT_SECRET
     );
 
@@ -66,7 +66,7 @@ export const login_admin = async (req, res, next) => {
       process.env.JWT_SECRET
     );
 
-    const { password, isAdmin, ...otherDetails } = user._doc;
+    const { password, isAdmin, ...otherDetails } = user.dataValues;
     res
       .cookie('access_token', token, {
         httpOnly: true,

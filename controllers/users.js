@@ -22,16 +22,10 @@ export const getAllUsers = async (req, res, next) => {
 
 export const updateUser = async (req, res, next) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: {
-          fullname: req.body.fullname,
-          phone: req.body.phone,
-        },
-      },
-      { new: true }
-    );
+    const updatedUser = await User.findOne({ where: { id: req.params.id } });
+    updatedUser.fullname = req.body.fullname;
+    updatedUser.phone = req.body.phone;
+    await updatedUser.save();
     res.status(200).json(updatedUser);
   } catch (err) {
     next(err);

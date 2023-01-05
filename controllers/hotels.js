@@ -15,11 +15,10 @@ export const createHotel = async (req, res, next) => {
 
 export const updateHotel = async (req, res, next) => {
   try {
-    const updatedHotel = await Hotel.findByIdAndUpdate(
-      req.params.id,
-      { $set: req.body },
-      { new: true }
-    );
+    const updatedHotel = await Hotel.findOne({ where: { id: req.params.id } });
+    console.log(updatedHotel.dataValues);
+    updatedHotel.set(req.body);
+    await updatedHotel.save();
     res.status(200).json(updatedHotel);
   } catch (err) {
     next(err);
@@ -50,11 +49,13 @@ export const getAllHotels = async (req, res, next) => {
 };
 
 export const byCity = async (req, res, next) => {
-  console.log(req.query.city.split(","));
-  const cities = req.params.city; 
-  console.log(cities)
+  console.log(req.query.city.split(','));
+  const cities = req.params.city;
+  console.log(cities);
   try {
-    const hotel = await Hotel.findAll({where: {city : req.query.city.split(",")}});
+    const hotel = await Hotel.findAll({
+      where: { city: req.query.city.split(',') },
+    });
     res.status(200).json(hotel);
   } catch (err) {
     next(err);
@@ -81,7 +82,7 @@ export const byType = async (req, res, next) => {
   // }
   const types = req.params.type;
   try {
-    const hotel = await Hotel.findAll({where: {type : types}});
+    const hotel = await Hotel.findAll({ where: { type: types } });
     res.status(200).json(hotel);
   } catch (err) {
     next(err);
@@ -89,11 +90,13 @@ export const byType = async (req, res, next) => {
 };
 
 export const getHotelsRoom = async (req, res, next) => {
+  console.log('---');
   try {
-    const hotel = await Hotel.findById(req.params.id);
+    const hotel = await Hotel.findOne({ where: { id: req.params.id } });
+    console.log(hotel);
     const list = await Promise.all(
       hotel.rooms.map((room) => {
-        return Room.findById(room);
+        return Room.findByPk(room);
       })
     );
     res.status(200).json(list);
@@ -104,7 +107,7 @@ export const getHotelsRoom = async (req, res, next) => {
 
 export const deleteHotel = async (req, res, next) => {
   try {
-    await Hotel.destroy({where:{id:req.params.id}});
+    await Hotel.destroy({ where: { id: req.params.id } });
     res.status(200).json({
       status: true,
       message: 'Hotel has been deleted.',

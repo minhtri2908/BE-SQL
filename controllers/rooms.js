@@ -116,19 +116,13 @@ export const getAllRooms = async (req, res, next) => {
 
 export const updateRoom = async (req, res, next) => {
   try {
-    const updatedRoom = await Room.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: {
-          title: req.body.title,
-          price: req.body.price,
-          desc: req.body.desc,
-          maxPeople: req.body.maxPeople,
-          roomNumbers: req.body.roomNumbers,
-        },
-      },
-      { new: true }
-    );
+    const updatedRoom = await Room.findOne({ where: { id: req.params.id } });
+    updatedRoom.title = req.body.title;
+    updatedRoom.price = req.body.price;
+    updatedRoom.desc = req.body.desc;
+    updatedRoom.maxPeople = req.body.maxPeople;
+    updatedRoom.roomNumbers = req.body.roomNumbers;
+    await updatedRoom.save();
     res.status(200).json(updatedRoom);
   } catch (err) {
     next(err);

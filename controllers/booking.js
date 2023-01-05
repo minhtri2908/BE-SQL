@@ -45,7 +45,7 @@ export const newBooking = async (req, res) => {
 
 export const getBookingUserId = async (req, res, next) => {
   try {
-    const bookings = await Booking.findOne({
+    const bookings = await Booking.findAll({
       where: { userId: req.params.id },
     });
     res.status(200).json(bookings);
@@ -65,15 +65,6 @@ export const getAllBooking = async (req, res, next) => {
 
 export const UpdateBooking = async (req, res, next) => {
   try {
-    // const booking = await Booking.findByIdAndUpdate(
-    //   req.params.id,
-    //   {
-    //     $set: {
-    //       status: req.body.status,
-    //     },
-    //   },
-    //   { new: true }
-    // );
     const booking = await Booking.findOne({ id: req.params.id });
     booking.status = req.body.status;
     await booking.save();
@@ -94,7 +85,7 @@ export const getBookingId = async (req, res, next) => {
 
 export const deleteBooking = async (req, res, next) => {
   try {
-    await Booking.findByIdAndDelete(req.params.id);
+    await Booking.destroy({where: {id:req.params.id}});
     res.status(200).json({
       status: true,
       message: 'Booking has been deleted.',
