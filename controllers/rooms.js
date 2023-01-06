@@ -36,13 +36,15 @@ export const updateRoomAvailability = async (req, res, next) => {
     });
     const dataNeedUpdate = rooms.dataValues.roomNumbers.map((item) => {
       if (item.id == idUpdate) {
-        item.unavailableDates.push(req.body.date);
-        console.log(item.unavailableDates);
-        // item.unavailableDates = [...item.unavailableDates, req.body.date];
+        // item.unavailableDates.push(req.body.date);
+        const newRooms = item.unavailableDates.concat(req.body.date);
+        // newRooms = [...newRooms,req.body.date];
+        item.unavailableDates = newRooms;
       }
       return item;
     });
-    console.log(dataNeedUpdate);
+
+    // console.log(dataNeedUpdate);
     await Room.update(
       { roomNumbers: dataNeedUpdate },
       {
@@ -53,7 +55,7 @@ export const updateRoomAvailability = async (req, res, next) => {
         ),
       }
     );
-    console.log(rooms.dataValues);
+    // console.log(rooms.dataValues);
     await rooms.save();
     res.status(200).json('Room status has been updated.');
   } catch (err) {
